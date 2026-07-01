@@ -24,18 +24,20 @@ if not RAZORPAY_KEY_ID or not RAZORPAY_KEY_SECRET:
 if not SUPABASE_URL or not SUPABASE_SERVICE_ROLE_KEY:
     raise RuntimeError("Missing Supabase environment variables")
 
-allowed_origins = [
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+
+origins = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:5175",
 ]
 
 if FRONTEND_URL:
-    allowed_origins.append(FRONTEND_URL)
+    origins.append(FRONTEND_URL)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
